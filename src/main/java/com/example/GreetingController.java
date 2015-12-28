@@ -31,9 +31,15 @@ public class GreetingController {
         return messageService.addMessage(message);
     }
 
-    @RequestMapping(method= RequestMethod.PUT)
-    public Message updateMessage(@RequestBody Message message){
+    @RequestMapping(method= RequestMethod.PUT, value = "/{messageId}")
+    public Message updateMessage(@PathVariable long messageId,  @RequestBody Message message){
+        message.setId(messageId);
         return messageService.updateMessage(message);
+    }
+
+    @RequestMapping( method = RequestMethod.DELETE, value = "/{messageId}")
+    public void deleteMessage(@PathVariable long messageId){
+        messageService.removeMessage(messageId);
     }
 
     @RequestMapping("/{messageId}")
